@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 #!/home/chittideekshithreddy/fde-day6-lab/.venv/bin/python3.11
+=======
+#!/home/chittideekshithreddy/fde-day5-lab/.venv/bin/python3.11
+>>>>>>> 990f8ca36ed7c9128475e81754358c197f7d26c1
 # -*- coding: utf-8 -*-
 import re
 import sys

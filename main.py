@@ -74,6 +74,7 @@ def verify_api_key(x_api_key: Optional[str] = Header(default=None)) -> str:
 
 # ── Pydantic models ───────────────────────────────────────────────────────────
 
+
 class ShipmentResponse(BaseModel):
     """What every shipment endpoint returns."""
 
@@ -121,6 +122,7 @@ class VendorStatus(BaseModel):
 
 # ── Vendor simulators ─────────────────────────────────────────────────────────
 
+
 async def call_vendor_a(shipment_id: str) -> dict:
     """Vendor A: clean field names, occasionally slow."""
     await asyncio.sleep(0.1)
@@ -147,6 +149,7 @@ async def call_vendor_c(shipment_id: str) -> dict:
 
 
 # ── Normaliser functions ──────────────────────────────────────────────────────
+
 
 def normalise_vendor_a(raw: dict) -> VendorStatus:
     return VendorStatus(
@@ -190,6 +193,7 @@ def normalise_vendor_c(raw: dict) -> VendorStatus:
 
 
 # ── Endpoints ─────────────────────────────────────────────────────────────────
+
 
 @app.get("/health")
 def health_check() -> dict:

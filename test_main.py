@@ -12,6 +12,7 @@ AUTH_HEADERS = {"X-API-Key": "techstar-fde-key-001"}
 
 # ── Auth tests ────────────────────────────────────────────────────────────────
 
+
 def test_missing_api_key_returns_401():
     response = client.get("/shipments")
     assert response.status_code == 401
@@ -29,6 +30,7 @@ def test_health_check_no_auth_required():
 
 
 # ── Shipment CRUD tests ───────────────────────────────────────────────────────
+
 
 def test_list_shipments_returns_all():
     response = client.get("/shipments", headers=AUTH_HEADERS)
@@ -118,6 +120,7 @@ def test_create_shipment_negative_cost_returns_422():
 
 # ── Carriers tests ────────────────────────────────────────────────────────────
 
+
 def test_list_carriers_returns_all():
     response = client.get("/carriers", headers=AUTH_HEADERS)
     assert response.status_code == 200
@@ -129,15 +132,23 @@ def test_list_carriers_returns_all():
 
 # ── Vendor aggregation tests (deterministic via mocks) ────────────────────────
 
+
 @patch("main.call_vendor_c", new_callable=AsyncMock)
 @patch("main.call_vendor_b", new_callable=AsyncMock)
 @patch("main.call_vendor_a", new_callable=AsyncMock)
 def test_supply_chain_status_all_vendors_succeed(mock_a, mock_b, mock_c):
     """When all 3 vendors respond, expect all 3 normalised results."""
     mock_a.return_value = {"id": "SH001", "current_status": "in_transit", "eta_days": 2}
-    mock_b.return_value = {"shipmentRef": "SH001", "trackingState": "DELAYED", "delayHrs": 36}
+    mock_b.return_value = {
+        "shipmentRef": "SH001",
+        "trackingState": "DELAYED",
+        "delayHrs": 36,
+    }
     mock_c.return_value = {
-        "shipment": {"identifier": "SH001", "state": {"code": "DELIVERED", "confidence": 0.95}}
+        "shipment": {
+            "identifier": "SH001",
+            "state": {"code": "DELIVERED", "confidence": 0.95},
+        }
     }
 
     response = client.get("/supply-chain-status/SH001", headers=AUTH_HEADERS)

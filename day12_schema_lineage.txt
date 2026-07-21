@@ -1,0 +1,114 @@
+
+════════════════════════════════════════════════════════════════
+DATASET: shipment_kpi_monthly
+Author:  Chitti Deekshith Reddy | TechStar Group Palantir COE
+Date:    June 2026
+════════════════════════════════════════════════════════════════
+
+SOURCE
+  raw_shipments.csv
+  Origin: Client TMS (Transportation Management System) weekly export
+  Format: CSV, comma-delimited, UTF-8, ~1,000 rows/week
+
+────────────────────────────────────────────────────────────────
+LINEAGE
+────────────────────────────────────────────────────────────────
+
+  raw_shipments.csv
+    │
+    ▼ Python cleaning (exercise1_cleaning.py)
+    │   Rule 1: status normalised — strip(), lower(), then mapped:
+    │           'in transit' / 'in-transit' / 'IN_TRANSIT' → 'in_transit'
+    │           'Delivered' / 'DELIVERED' → 'delivered'
+    │           'Delayed' / 'DELAYED' → 'delayed'
+    │           'Pending' → 'pending'
+    │           '' (empty string) → None
+    │   Rule 2: ship_date parsed with pd.to_datetime(errors='coerce');
+    │           unparseable values set to NaT and logged
+    │   Rule 3: Rows dropped if shipment_id IS NULL or ship_date IS NaT
+    │   Rule 4: Duplicate shipment_id rows dropped (keep='first')
+    │   Rule 5: freight_cost > 99th percentile flagged as cost_flag=True
+    │           (NOT dropped — retained for audit)
+    │
+    ▼
+  shipments_clean (PostgreSQL table, fde_academy database)
+    │   Loaded via SQLAlchemy df.to_sql(if_exists='replace')
+    │   Row count verified against Python DataFrame after load
+    │
+    ▼ SQL aggregation (exercise2_sql_transform.py — CREATE TABLE AS SELECT)
+    │   GROUP BY: carrier, DATE_TRUNC('month', ship_date)
+    │   Aggregations:
+    │     COUNT(*)                              → shipment_count
+    │     ROUND(AVG(freight_cost), 2)           → avg_freight_cost
+    │     SUM(CASE WHEN status='delivered'...)/COUNT(*) → on_time_rate
+    │     COUNT(*) FILTER (WHERE cost_flag)     → high_cost_shipments
+    │
+    ▼
+  shipment_kpi_monthly (PostgreSQL table, fde_academy database)
+
+────────────────────────────────────────────────────────────────
+SCHEMA: shipment_kpi_monthly
+────────────────────────────────────────────────────────────────
+
+  carrier             VARCHAR    Carrier code (DHL / FEDEX / BLUEDART).
+                                 Sourced from raw carrier column after
+                                 UPPER() normalisation.
+
+  ship_month          DATE       First day of the calendar month,
+                                 derived from DATE_TRUNC('month',
+                                 ship_date). Used as the time axis for
+                                 all trend reporting.
+
+  shipment_count      INTEGER    Total number of clean shipments for
+                                 this carrier in this month. Excludes
+                                 dropped rows (see Known Limitations).
+
+  avg_freight_cost    NUMERIC    Mean freight_cost across all shipments
+                                 in this carrier/month group, rounded
+                                 to 2 decimal places. Cost outliers
+                                 (cost_flag=TRUE) ARE included in this
+                                 average.
+
+  on_time_rate        FLOAT      Proportion of shipments in this group
+                                 where status = 'delivered', as a
+                                 decimal (0.00–1.00). Status variants
+                                 were normalised before this was
+                                 computed — see Rule 1 in LINEAGE.
+
+  high_cost_shipments INTEGER    Count of shipments where freight_cost
+                                 exceeded the 99th percentile of the
+                                 cleaned dataset. Used to monitor
+                                 premium/expedited shipment activity.
+
+────────────────────────────────────────────────────────────────
+KNOWN LIMITATIONS
+────────────────────────────────────────────────────────────────
+
+  1. Dropped rows (~3–5% of raw file):
+     Rows with missing shipment_id or unparseable ship_date were
+     excluded from all downstream counts. If these drops are
+     concentrated in a specific carrier or time window, the
+     shipment_count and on_time_rate for that group may be slightly
+     understated. The client's TMS vendor should be asked to
+     investigate the source of missing IDs.
+
+  2. Duplicate resolution (keep='first'):
+     Duplicate shipment_id rows were deduplicated by keeping the
+     first occurrence. The client should confirm whether duplicates
+     represent amended records (in which case 'last' might be more
+     appropriate) or true data entry errors.
+
+  3. Cost outliers included in average:
+     Freight cost outliers above the 99th percentile were flagged
+     but NOT excluded from avg_freight_cost. If these represent
+     expedited shipments, the average cost may be inflated. The
+     client should confirm their nature before using cost KPIs
+     for carrier negotiation.
+
+  4. 'on_time' = 'delivered' assumption:
+     On-time rate is computed as the share of shipments with
+     status = 'delivered'. This assumes all delivered shipments
+     were on time — a delivered-but-late category may exist in the
+     source system and is not captured in this pipeline.
+
+════════════════════════════════════════════════════════════════

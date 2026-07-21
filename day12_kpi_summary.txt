@@ -1,0 +1,52 @@
+
+KPI SUMMARY — Shipment Performance
+Prepared for: Operations Director
+Period: January–June 2024
+Data source: TMS weekly export → cleaned pipeline (Day 12 lab)
+
+────────────────────────────────────────────────────────────
+
+1. ON-TIME DELIVERY RATE
+
+   FEDEX is the strongest performing carrier with an average
+   on-time delivery rate of 24.6% across the six-month period.
+   BLUEDART is the weakest performer at 18.8% — a gap of
+   5.9% percentage points. All carriers show
+   month-to-month variation, which warrants ongoing monitoring rather
+   than a single-point assessment.
+
+   Action recommended: Review BLUEDART's SLA contract terms and
+   request a root-cause analysis for months where their on-time rate
+   fell below 19%.
+
+────────────────────────────────────────────────────────────
+
+2. FREIGHT COST
+
+   Average freight cost across all carriers is ₹315.81 per
+   shipment. DHL is the most expensive carrier on average.
+   Cost trends are broadly flat over the period — no sustained upward
+   or downward movement is visible, suggesting pricing is stable.
+   A small number of high-cost outliers (above the 99th percentile)
+   were flagged in cleaning and are excluded from the average shown
+   here — the operations team should confirm whether these represent
+   expedited shipments or data entry errors.
+
+────────────────────────────────────────────────────────────
+
+3. DATA QUALITY CAVEAT
+
+   The raw TMS export contained approximately 3–5% of rows that were
+   dropped during cleaning: rows with missing shipment IDs, unparseable
+   dates, or duplicate keys. These dropped rows are NOT included in
+   the KPI figures above. If the dropped rows are concentrated in a
+   specific carrier or time period, the on-time rates for that
+   carrier/period may be slightly overstated or understated.
+
+   Recommendation: The operations team should confirm with the TMS
+   vendor whether the missing IDs represent system gaps or extraction
+   errors — and whether excluded rows should be recovered before the
+   next reporting cycle.
+
+   DQ Report: PASS — 0 duplicate keys, 0 negative costs,
+   all null rates below 5% after cleaning.

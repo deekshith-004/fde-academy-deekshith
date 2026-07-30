@@ -12,7 +12,7 @@ from sqlalchemy import create_engine, text
 DB_URL = "postgresql://fde_user:fde_password_2024@localhost:5432/fde_academy"
 engine = create_engine(DB_URL)
 
-# ─── TASK 1: LOAD CLEANED DATA ───────────────────────────────────────────────
+# ───  LOAD CLEANED DATA ───────────────────────────────────────────────
 print("=" * 60)
 print("TASK 1 — LOAD shipments_clean INTO POSTGRESQL")
 print("=" * 60)

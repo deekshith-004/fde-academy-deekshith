@@ -10,9 +10,9 @@ import pandas as pd
 
 df_raw = pd.read_csv("raw_shipments.csv")
 
-print("=" * 60)
+print("=" * 20)
 print("TASK 1 — RAW FILE PROFILE")
-print("=" * 60)
+print("=" * 20)
 
 # Shape and dtypes
 print(f"\nShape: {df_raw.shape}  ({df_raw.shape[0]} rows, {df_raw.shape[1]} cols)")
@@ -44,7 +44,7 @@ print("=" * 60)
 df = df_raw.copy()
 cleaning_log: list[str] = []
 
-# Rule 1: Standardise status — strip whitespace + lowercase
+# Standardise status — strip whitespace + lowercase
 df["status"] = df["status"].str.strip().str.lower()
 
 # Map all observed variants to canonical set
@@ -64,7 +64,7 @@ cleaning_log.append(msg)
 print(f"\n{msg}")
 print(unique_after)
 
-# Rule 2: Parse ship_date — coerce bad values to NaT, log failures
+#  Parse ship_date — coerce bad values to NaT, log failures
 before_parse = len(df)
 df["ship_date"] = pd.to_datetime(df["ship_date"], errors="coerce")
 bad_dates = df["ship_date"].isnull().sum() - df_raw["ship_date"].isnull().sum()
@@ -72,7 +72,7 @@ msg = f"Rule 2 — {bad_dates} rows failed date parse (set to NaT)"
 cleaning_log.append(msg)
 print(f"\n{msg}")
 
-# Rule 3: Drop rows with missing shipment_id or unparseable ship_date
+# Drop rows with missing shipment_id or unparseable ship_date
 before = len(df)
 df = df.dropna(subset=["shipment_id", "ship_date"])
 dropped_key_date = before - len(df)
@@ -80,7 +80,7 @@ msg = f"Rule 3 — Dropped {dropped_key_date} rows: missing shipment_id or bad s
 cleaning_log.append(msg)
 print(f"{msg}")
 
-# Rule 4: Drop duplicate shipment_id — keep first occurrence
+#  Drop duplicate shipment_id — keep first occurrence
 before = len(df)
 df = df.drop_duplicates(subset=["shipment_id"], keep="first")
 dropped_dups = before - len(df)
@@ -88,7 +88,7 @@ msg = f"Rule 4 — Dropped {dropped_dups} duplicate shipment_id rows (kept first
 cleaning_log.append(msg)
 print(f"{msg}")
 
-# Rule 5: Flag (don't drop) freight_cost outliers above 99th percentile
+#  Flag (don't drop) freight_cost outliers above 99th percentile
 p99 = df["freight_cost"].quantile(0.99)
 df["cost_flag"] = df["freight_cost"] > p99
 flagged = df["cost_flag"].sum()

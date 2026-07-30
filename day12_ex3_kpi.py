@@ -27,7 +27,7 @@ print(kpi.head(9))
 
 fig, axes = plt.subplots(1, 2, figsize=(14, 5))
 
-# Chart 1: On-Time Rate by Carrier over time
+# Chart  On-Time Rate by Carrier over time
 ax1 = axes[0]
 for carrier, grp in kpi.groupby("carrier"):
     grp_sorted = grp.sort_values("ship_month")
@@ -167,7 +167,6 @@ SOURCE
 ────────────────────────────────────────────────────────────────
 LINEAGE
 ────────────────────────────────────────────────────────────────
-
   raw_shipments.csv
     │
     ▼ Python cleaning (exercise1_cleaning.py)
@@ -183,7 +182,6 @@ LINEAGE
     │   Rule 4: Duplicate shipment_id rows dropped (keep='first')
     │   Rule 5: freight_cost > 99th percentile flagged as cost_flag=True
     │           (NOT dropped — retained for audit)
-    │
     ▼
   shipments_clean (PostgreSQL table, fde_academy database)
     │   Loaded via SQLAlchemy df.to_sql(if_exists='replace')
@@ -196,39 +194,32 @@ LINEAGE
     │     ROUND(AVG(freight_cost), 2)           → avg_freight_cost
     │     SUM(CASE WHEN status='delivered'...)/COUNT(*) → on_time_rate
     │     COUNT(*) FILTER (WHERE cost_flag)     → high_cost_shipments
-    │
     ▼
   shipment_kpi_monthly (PostgreSQL table, fde_academy database)
 
 ────────────────────────────────────────────────────────────────
 SCHEMA: shipment_kpi_monthly
 ────────────────────────────────────────────────────────────────
-
   carrier             VARCHAR    Carrier code (DHL / FEDEX / BLUEDART).
                                  Sourced from raw carrier column after
                                  UPPER() normalisation.
-
   ship_month          DATE       First day of the calendar month,
                                  derived from DATE_TRUNC('month',
                                  ship_date). Used as the time axis for
                                  all trend reporting.
-
   shipment_count      INTEGER    Total number of clean shipments for
                                  this carrier in this month. Excludes
                                  dropped rows (see Known Limitations).
-
   avg_freight_cost    NUMERIC    Mean freight_cost across all shipments
                                  in this carrier/month group, rounded
                                  to 2 decimal places. Cost outliers
                                  (cost_flag=TRUE) ARE included in this
                                  average.
-
   on_time_rate        FLOAT      Proportion of shipments in this group
                                  where status = 'delivered', as a
                                  decimal (0.00–1.00). Status variants
                                  were normalised before this was
                                  computed — see Rule 1 in LINEAGE.
-
   high_cost_shipments INTEGER    Count of shipments where freight_cost
                                  exceeded the 99th percentile of the
                                  cleaned dataset. Used to monitor

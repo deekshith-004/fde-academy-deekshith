@@ -1,0 +1,127 @@
+[
+  {
+    "style": "1_zero_shot",
+    "note": "Pump 4 vibration levels remain within normal range after service.",
+    "output": "**LOW**\n\nThis maintenance note indicates normal operating conditions after service. The pump is functioning properly with vibration levels within acceptable parameters, suggesting no immediate action is required."
+  },
+  {
+    "style": "1_zero_shot",
+    "note": "Conveyor belt 12 motor overheating, smoke smell reported, line stopped.",
+    "output": "**HIGH**\n\nThis maintenance issue requires immediate attention due to:\n\n- **Motor overheating** - indicates potential failure or fire risk\n- **Smoke smell** - suggests active burning/damage occurring\n- **Line stopped** - production is already halted, impacting operations\n\nThis situation poses both safety hazards (potential fire) and significant operational disruption requiring urgent intervention."
+  },
+  {
+    "style": "1_zero_shot",
+    "note": "Compressor unit 7 pressure gauge reading slightly inconsistent, monitoring.",
+    "output": "**MEDIUM**\n\n**Reasoning:**\n- The compressor is still operational (being monitored rather than shut down)\n- Pressure gauge inconsistencies can indicate developing problems that could escalate\n- Compressors are critical equipment where pressure issues can lead to safety concerns or equipment failure\n- \"Monitoring\" suggests it's not immediately dangerous but requires attention\n- Inconsistent readings could indicate gauge malfunction (less urgent) or actual pressure fluctuations (more urgent)\n\n**Recommendation:** Should be scheduled for inspection/repair soon, but not an emergency requiring immediate action."
+  },
+  {
+    "style": "1_zero_shot",
+    "note": "Emergency shutoff valve on Tank 3 failed to engage during test.",
+    "output": "**HIGH**\n\nThis is a high urgency issue because:\n\n1. **Safety-critical equipment failure** - Emergency shutoff valves are essential safety devices designed to prevent catastrophic incidents\n2. **Failed during testing** - The valve did not perform its intended function when needed\n3. **Tank 3 is now at risk** - Without a functioning emergency shutoff, there's no fail-safe mechanism if a leak, overflow, or other emergency occurs\n4. **Potential for serious consequences** - Depending on tank contents, failure could lead to spills, fires, explosions, or environmental hazards\n\n**Immediate action required** - This should be addressed before the next operational cycle and Tank 3 should potentially be taken offline until the valve is repaired or replaced."
+  },
+  {
+    "style": "1_zero_shot",
+    "note": "Routine filter replacement completed on HVAC unit 2, no issues found.",
+    "output": "**LOW**\n\nThis is routine preventive maintenance that was completed successfully with no issues identified. There are no problems requiring immediate attention or follow-up action."
+  },
+  {
+    "style": "2_role",
+    "note": "Pump 4 vibration levels remain within normal range after service.",
+    "output": "**Urgency Classification: LOW**\n\n**Rationale:**\n- The vibration levels are **within normal range**, indicating the equipment is operating as expected\n- This is a **post-service confirmation** note, not reporting a new problem\n- No immediate safety risk to workers\n- No indication of equipment malfunction or deterioration\n- This is routine monitoring data showing satisfactory conditions\n\n**Recommended Action:**\n- Continue routine monitoring per maintenance schedule\n- Document the reading for trend analysis\n- No immediate intervention required\n\nThis does not warrant emergency response resources or urgent action."
+  },
+  {
+    "style": "2_role",
+    "note": "Conveyor belt 12 motor overheating, smoke smell reported, line stopped.",
+    "output": "# URGENCY CLASSIFICATION: **HIGH**\n\n## Justification:\n\n**Immediate Safety Concerns:**\n- **Smoke smell** indicates potential fire hazard\n- **Overheating motor** can lead to ignition of electrical components or nearby combustible materials\n- Situation is actively deteriorating (already producing smoke)\n\n**Critical Factors:**\n1. **Fire risk** - Smoke from electrical/mechanical equipment is a precursor to fire\n2. **Worker safety** - Personnel in the area are at risk\n3. **Rapid escalation potential** - Overheating can quickly progress to flames\n\n## Required Actions:\n- \u2713 Line already stopped (good initial response)\n- Immediate inspection required by qualified electrician/technician\n- Lock-out/tag-out procedures must be implemented\n- Fire watch may be necessary until motor cools and is inspected\n- Do not restart until root cause is identified and corrected\n- Verify fire suppression systems in area are functional\n\n**This is NOT a \"wait until next shift\" situation.** Address immediately with appropriate emergency response protocols."
+  },
+  {
+    "style": "2_role",
+    "note": "Compressor unit 7 pressure gauge reading slightly inconsistent, monitoring.",
+    "output": "# Urgency Classification: **LOW**\n\n## Rationale:\n\n**Key indicators supporting LOW urgency:**\n- **\"Slightly\" inconsistent** - minor deviation, not grossly inaccurate\n- **\"Monitoring\"** - already under observation, suggesting controlled situation\n- **Gauge reading issue** - instrumentation concern rather than equipment failure\n- **No mention of:** safety trip activation, leaks, abnormal sounds, vibration, or operational shutdown\n\n## Recommended Actions:\n1. Continue monitoring as noted\n2. Schedule gauge calibration/replacement during next planned maintenance window\n3. Verify reading against alternate pressure measurement if available\n4. Document readings to track any deterioration trend\n\n## Escalation Triggers (would increase to MEDIUM/HIGH):\n- Readings become erratic or rapidly deteriorating\n- Compressor shows signs of actual pressure problems (cycling, performance loss)\n- Safety systems affected\n- Operations impacted\n\n**This is routine maintenance monitoring - appropriate for normal work order scheduling.**"
+  },
+  {
+    "style": "2_role",
+    "note": "Emergency shutoff valve on Tank 3 failed to engage during test.",
+    "output": "# URGENCY CLASSIFICATION: **HIGH**\n\n## Justification:\n\n**Immediate safety-critical failure identified:**\n\n1. **Emergency shutoff valves are last-line-of-defense safety systems** - they exist to prevent catastrophic releases, fires, explosions, or environmental disasters\n\n2. **Confirmed failure during testing** - this is not a suspected issue; the valve demonstrably did not perform its safety function\n\n3. **Tank 3 is now operating without a critical safety barrier** - until repaired, there is no reliable way to isolate this tank in an emergency\n\n4. **Regulatory implications** - most jurisdictions require emergency shutdown systems to be functional; continued operation may violate permits\n\n## Recommended immediate actions:\n- **Stop operations on Tank 3** or implement compensating controls immediately\n- Dispatch qualified technicians for emergency repair\n- Notify plant management and safety personnel\n- Document the failure and response per safety management system requirements\n- Consider if nearby interconnected systems are also at risk\n\n**This requires immediate attention - do not delay response.**"
+  },
+  {
+    "style": "2_role",
+    "note": "Routine filter replacement completed on HVAC unit 2, no issues found.",
+    "output": "**Urgency Classification: LOW**\n\n**Rationale:**\n- This is a **completed** routine maintenance task, not a problem requiring response\n- No issues were found during the work\n- Filter replacement is preventive maintenance, not corrective\n- No safety hazards identified\n- No immediate action required\n\nThis is a documentation note confirming normal maintenance activities were performed successfully. No emergency response or urgent follow-up is needed."
+  },
+  {
+    "style": "3_few_shot",
+    "note": "Pump 4 vibration levels remain within normal range after service.",
+    "output": "**LOW**\n\nThis note indicates that equipment is functioning normally after maintenance. The vibration levels are within acceptable parameters, suggesting no immediate issues or safety concerns requiring urgent attention."
+  },
+  {
+    "style": "3_few_shot",
+    "note": "Conveyor belt 12 motor overheating, smoke smell reported, line stopped.",
+    "output": "**Urgency: HIGH**\n\n**Reasoning:**\n- Motor overheating with smoke indicates immediate fire risk\n- Production line already stopped, affecting operations\n- Potential for equipment damage or safety hazard\n- Requires immediate inspection and intervention"
+  },
+  {
+    "style": "3_few_shot",
+    "note": "Compressor unit 7 pressure gauge reading slightly inconsistent, monitoring.",
+    "output": "**Urgency: MEDIUM**\n\n**Reasoning:** \n- The issue involves a pressure gauge inconsistency on critical equipment (compressor unit)\n- It's being actively monitored, suggesting concern but not immediate danger\n- \"Slightly inconsistent\" indicates it's not functioning normally but hasn't failed completely\n- Pressure-related issues can escalate to safety hazards if not addressed\n- No immediate danger or evacuation mentioned (unlike HIGH urgency scenarios)\n- Requires attention and follow-up, but not emergency response (unlike LOW urgency where everything is functioning properly)"
+  },
+  {
+    "style": "3_few_shot",
+    "note": "Emergency shutoff valve on Tank 3 failed to engage during test.",
+    "output": "**HIGH**\n\nAn emergency shutoff valve failing during testing is a critical safety issue. This valve is designed to prevent catastrophic failures, leaks, or explosions in emergency situations. If it doesn't engage when needed during an actual emergency, it could result in:\n- Environmental contamination\n- Fire or explosion risk\n- Personnel safety hazards\n- Significant property damage\n\nThis requires immediate attention and repair before the tank is returned to service."
+  },
+  {
+    "style": "3_few_shot",
+    "note": "Routine filter replacement completed on HVAC unit 2, no issues found.",
+    "output": "**LOW**\n\nThis is routine maintenance that was completed successfully with no issues identified. There is no safety concern, no equipment failure, and no impact on operations."
+  },
+  {
+    "style": "4_cot",
+    "note": "Pump 4 vibration levels remain within normal range after service.",
+    "output": "Let me analyze this maintenance note step by step:\n\n1) **What equipment/system is involved?**\n   - Pump 4 (a mechanical pumping system)\n   - The note indicates recent service was performed and vibration monitoring has been conducted\n\n2) **Is there an immediate safety risk?**\n   - No immediate safety risk\n   - Vibration levels are \"within normal range\"\n   - This is a positive status report following maintenance\n   - The equipment is operating as expected\n\n3) **What happens if this is ignored?**\n   - This is actually a positive confirmation note, not a problem requiring action\n   - No action is required since the equipment is performing normally\n   - This is documentation of satisfactory post-service condition\n   - Continued routine monitoring would be the standard follow-up\n\nThis note indicates that maintenance has been completed successfully and the equipment is operating normally. It's an informational update rather than an alert requiring urgent action.\n\n**Urgency: LOW**"
+  },
+  {
+    "style": "4_cot",
+    "note": "Conveyor belt 12 motor overheating, smoke smell reported, line stopped.",
+    "output": "Let me analyze this step by step:\n\n**1) What equipment/system is involved?**\n- Conveyor belt 12 motor - a critical production component\n- The line has already been stopped, indicating this is an active issue\n\n**2) Is there an immediate safety risk?**\n- Yes, significant safety risk:\n  - Motor overheating with smoke smell indicates potential fire hazard\n  - Smoke suggests electrical/mechanical failure in progress\n  - Could lead to fire, equipment damage, or injury to personnel\n\n**3) What happens if this is ignored?**\n- Potential fire outbreak\n- Complete motor failure requiring full replacement vs. repair\n- Possible damage to the entire conveyor system\n- Extended production downtime\n- Risk to worker safety\n- Potential facility damage\n\nThe combination of overheating, smoke smell, and stopped production indicates an active failure condition with fire risk.\n\n**Urgency: HIGH**"
+  },
+  {
+    "style": "4_cot",
+    "note": "Compressor unit 7 pressure gauge reading slightly inconsistent, monitoring.",
+    "output": "Let me analyze this maintenance note step by step:\n\n1) **What equipment/system is involved?**\n   - Compressor unit 7 and its pressure gauge\n   - Compressors are important equipment, but this appears to be a monitoring/instrumentation issue rather than a compressor malfunction\n\n2) **Is there an immediate safety risk?**\n   - No immediate safety risk indicated\n   - The issue is described as \"slightly inconsistent\" (not wildly inaccurate or failed)\n   - The gauge is already being monitored, suggesting awareness and oversight\n   - The compressor itself is not reported as malfunctioning\n\n3) **What happens if this is ignored?**\n   - Could lead to inability to detect actual pressure problems with the compressor\n   - Might result in delayed response to a real issue\n   - Could eventually cause compressor damage if true pressure problems go undetected\n   - However, \"monitoring\" suggests there's active attention on this issue\n\n**Key factors:**\n- \"Slightly\" inconsistent suggests minor deviation\n- Already under monitoring (not being ignored)\n- No indication of equipment failure or safety hazard\n- Gauge issue, not compressor issue\n\n**Urgency: LOW**\n\nThis should be scheduled for repair/calibration during regular maintenance, but doesn't require immediate action since it's being monitored and the inconsistency is"
+  },
+  {
+    "style": "4_cot",
+    "note": "Emergency shutoff valve on Tank 3 failed to engage during test.",
+    "output": "Let me analyze this step by step:\n\n1) **What equipment/system is involved?**\n   - Emergency shutoff valve on Tank 3\n   - This is a critical safety system designed to stop flow in emergency situations\n\n2) **Is there an immediate safety risk?**\n   - Yes. The emergency shutoff valve is a fail-safe device\n   - It failed during testing, meaning it would not function in an actual emergency\n   - This leaves the tank without a critical safety control\n\n3) **What happens if this is ignored?**\n   - In an emergency situation (leak, overpressure, fire, etc.), there would be no way to quickly isolate Tank 3\n   - This could lead to:\n     - Uncontrolled release of tank contents\n     - Environmental contamination\n     - Fire/explosion risk (depending on contents)\n     - Personnel injury or death\n     - Major equipment damage\n     - Regulatory violations\n\n**Urgency: HIGH**\n\nThis is a failed safety-critical system. Emergency shutoff valves are last-line-of-defense equipment, and their failure during testing indicates Tank 3 is currently operating without proper emergency protection. This requires immediate attention and repair before continued operation."
+  },
+  {
+    "style": "4_cot",
+    "note": "Routine filter replacement completed on HVAC unit 2, no issues found.",
+    "output": "Let me analyze this maintenance note step by step:\n\n1) **What equipment/system is involved?**\n   - HVAC unit 2 (Heating, Ventilation, and Air Conditioning system)\n   - This is a routine filter replacement\n\n2) **Is there an immediate safety risk?**\n   - No immediate safety risk\n   - The work has already been completed\n   - No issues were found during the service\n\n3) **What happens if this is ignored?**\n   - This is not something to be ignored - it's a completed action\n   - This is a documentation of routine preventive maintenance\n   - The maintenance has already been performed successfully\n\n**Analysis:**\n- This is a routine, completed maintenance task\n- It's informational/documentary in nature\n- No problems were discovered\n- No follow-up action is required\n- This represents normal, scheduled preventive maintenance\n\n**Urgency: LOW**\n\nThis is simply a record of completed routine maintenance with no issues identified, requiring no urgent action."
+  },
+  {
+    "style": "5_structured",
+    "note": "Pump 4 vibration levels remain within normal range after service.",
+    "output": "{\"urgency\": \"LOW\", \"reason\": \"Vibration levels are within normal range, indicating the pump is operating properly with no immediate issues requiring attention.\"}"
+  },
+  {
+    "style": "5_structured",
+    "note": "Conveyor belt 12 motor overheating, smoke smell reported, line stopped.",
+    "output": "{\"urgency\": \"HIGH\", \"reason\": \"Motor overheating with smoke smell indicates immediate fire hazard and safety risk requiring urgent attention.\"}"
+  },
+  {
+    "style": "5_structured",
+    "note": "Compressor unit 7 pressure gauge reading slightly inconsistent, monitoring.",
+    "output": "{\"urgency\": \"LOW\", \"reason\": \"The issue is currently being monitored and only shows slight inconsistency with no indication of immediate failure or safety risk.\"}"
+  },
+  {
+    "style": "5_structured",
+    "note": "Emergency shutoff valve on Tank 3 failed to engage during test.",
+    "output": "```json\n{\"urgency\": \"HIGH\", \"reason\": \"A failed emergency shutoff valve poses an immediate safety risk and could lead to hazardous spills or uncontrolled releases if not addressed immediately.\"}\n```"
+  },
+  {
+    "style": "5_structured",
+    "note": "Routine filter replacement completed on HVAC unit 2, no issues found.",
+    "output": "{\"urgency\": \"LOW\", \"reason\": \"This is a completed routine maintenance task with no issues identified.\"}"
+  }
+]
